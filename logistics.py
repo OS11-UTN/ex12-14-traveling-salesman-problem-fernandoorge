@@ -4,6 +4,9 @@
 
 import numpy as np
 import math
+import random
+import matplotlib
+import matplotlib.pyplot as plt
 
 def count_ones(NN):
     """Return number of ones in Node-Node Matrix."""
@@ -198,3 +201,75 @@ def ford_fulk(G, s, t):
             fbG[path[k+1], path[k]]  -= maxc
         path = dfs(resG, s, t)
     return flow, fbG
+    
+def full_graph(dim):
+    """Return the Node-Node Matrix of a full graph."""
+    # Input  : dim      dimension           as integer value
+    # Output : G        Node-Node Matrix    as {dim x dim} matrix of integers   
+    G = np.zeros((dim, dim))
+    for i in range(0, dim):
+        for j in range(0, dim):
+            if (i != j):
+                G[i,j] = 1
+    return G
+    
+def get_random_points(num):
+    """Return a list of random points (x,y) in [0,1)X[0,1)."""
+    # Input  : num      number of points    as integer value
+    # Output : points   list of points      as list of tuples
+    points = []
+    for k in range(0, num):
+        x = random.randint(0,100) / 100
+        y = random.randint(0,100) / 100
+        points.append((x,y))
+    return points
+
+def distance(p1, p2):
+    """Return distance between p1 and p2."""
+    # Input  : p1       point1 (x,y)    as tuple
+    # Input  : p2       point2 (x,y)    as tuple
+    # Output : distance dist(p1,p2)     as real
+    return (math.sqrt( pow(p2[0]-p1[0],2) + pow(p2[1]-p1[1],2) ))
+    
+def first_value(iterable, value):
+    """Return the index of the first appearance of value in iterable."""
+    # Input  : iterable                 as any iterable
+    # Input  : value                    as any element in the iterable
+    # Output : idx          index       as integer value
+    idx = -1
+    for k in range(0, len(iterable)):
+        if (iterable[k] == value):
+            idx = k
+            break
+    return idx
+            
+def get_subtours(connections):
+    """@TODO."""
+    length   = len(connections)
+    labeled  = [0 for col in range(length)]
+    subtours = []
+    while ( sum(labeled) < length ):
+        path      = []
+        init_node = first_value(labeled, 0)
+        curr_node = init_node
+        next_node = math.inf
+        while (init_node != next_node):
+            path.append(curr_node)
+            labeled[curr_node] = 1
+            next_node = connections[curr_node].index(1)
+            curr_node = next_node
+        subtours.append(path)
+    return subtours
+    
+def plot_tour(x, y, tour):
+    """@TODO."""
+    plt.plot(x, y, 'ro')
+    for k in range(0, len(tour)):
+        if (k == len(tour)-1):
+            xseg = [x[tour[k]], x[tour[0]]]
+            yseg = [y[tour[k]], y[tour[0]]]
+            plt.plot(xseg, yseg, 'b-->')
+        else:
+            xseg = [x[tour[k]], x[tour[k+1]]]
+            yseg = [y[tour[k]], y[tour[k+1]]]
+            plt.plot(xseg, yseg, 'b-->')
