@@ -261,15 +261,28 @@ def get_subtours(connections):
         subtours.append(path)
     return subtours
     
-def plot_tour(x, y, tour):
+def plot_tour(points, tour):
     """@TODO."""
+    x = [tup[0] for tup in points] 
+    y = [tup[1] for tup in points]
     plt.plot(x, y, 'ro')
     for k in range(0, len(tour)):
         if (k == len(tour)-1):
             xseg = [x[tour[k]], x[tour[0]]]
             yseg = [y[tour[k]], y[tour[0]]]
-            plt.plot(xseg, yseg, 'b-->')
+            plt.plot(xseg, yseg, 'b-.')
         else:
             xseg = [x[tour[k]], x[tour[k+1]]]
             yseg = [y[tour[k]], y[tour[k+1]]]
-            plt.plot(xseg, yseg, 'b-->')
+            plt.plot(xseg, yseg, 'b-.')
+            
+def tour_distance(points, tour):
+    dist = 0
+    x = [tup[0] for tup in points] 
+    y = [tup[1] for tup in points]
+    for k in range(0, len(tour)):
+        if (k == len(tour)-1):
+            dist += math.sqrt(pow(x[tour[0]]  -x[tour[k]],2) + pow(y[tour[0]]  -y[tour[k]],2))
+        else:
+            dist += math.sqrt(pow(x[tour[k+1]]-x[tour[k]],2) + pow(y[tour[k+1]]-y[tour[k]],2))
+    return dist
