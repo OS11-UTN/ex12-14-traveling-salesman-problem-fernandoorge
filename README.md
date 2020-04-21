@@ -24,7 +24,7 @@ Each exercise of the assignment is solved in a different file
 
 The random cities are shown below
 
-![](ex12_tsp_cities.png)
+![](images/ex12_tsp_cities.png)
 
 
 ```
@@ -33,7 +33,7 @@ The random cities are shown below
 
 The results are shown below
 
-![](ex12_tsp_subtours.png)
+![](images/ex12_tsp_subtours.png)
 
 
 ```
@@ -129,7 +129,7 @@ These four paths are shown below
 
 The same set of cities is used for this exercise. All the cities are shown below.
 
-![](ex14_tsp_cities.png)
+![](images/ex14_tsp_cities.png)
 
 Since the graph is assumed to be complete (i.e. each point is adjacent to each other), a trivial solution is obtained by visiting each node in increasing order, as shown below
 
@@ -138,12 +138,12 @@ Since the graph is assumed to be complete (i.e. each point is adjacent to each o
     Initial tour distance = 7.322600
 ```
 
-![](ex14_tsp_initial.png)
+![](images/ex14_tsp_initial.png)
 
 
 By applying GRASP METHOD, this is the best solution found after **2000 iterations**.
 
-![](ex14_tsp_best.png)
+![](images/ex14_tsp_best.png)
 
 ```
     New tour [3, 2, 8, 12, 4, 13, 9, 7, 14, 10, 6, 11, 0, 5, 1]
@@ -152,10 +152,10 @@ By applying GRASP METHOD, this is the best solution found after **2000 iteration
 
 If we took the distances at each iteration of the GRASP Method, we got the following figure
 
-![](ex14_tsp_distances.png)
+![](images/ex14_tsp_distances.png)
 
 Where we can see that there's no iteration that can obtain a distance lower than 4 units (approximately), and also we can see that the algorithm converges to that value in (approximately) 250 iterations.
 
 If we only considered those iterations where we obtained a better distance (a lower than the previous one), we can see that (see picture below) that only **14 out of 2000 iterations** are getting a better distance.
 
-![](ex14_tsp_best_dists.png)
+![](images/ex14_tsp_best_dists.png)
