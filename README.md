@@ -103,7 +103,7 @@ The same set of cities is used for this exercise. All the cities are shown below
 
 ![](ex14_tsp_cities.png)
 
-Since the graph is assumed to be complete (i.e. each point is adjacent to each other), a trivial solution is obtained visiting each node in increasing order, as shown below
+Since the graph is assumed to be complete (i.e. each point is adjacent to each other), a trivial solution is obtained by visiting each node in increasing order, as shown below
 
 ```
     Initial tour: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
@@ -130,4 +130,4 @@ Where we can see that there's no iteration that can obtain a distance lower than
 
 If we only considered those iterations where we obtained a better distance (a lower than the previous one), we can see that (see picture below) that only **14 out of 2000 iterations** are getting a better distance.
 
-![](ex14_tsp_best_dists)
+![](ex14_tsp_best_dists.png)
