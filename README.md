@@ -91,7 +91,35 @@ However, this solution won't be optimal but it can be improved using an appropia
 ```
 1) Solve the TSP with an original implementation of the Genetic Algorithm (GA).
 ```
-Work in progress...
+
+The same set of cities is used for this exercise. All the cities are shown below.
+
+![](images/ex13_tsp_cities.png)
+
+The results from the genetic algorithm can be found at **ex13.log**.
+
+During only the improvement were recorded, i.e. those paths that improve the previous best record.
+```
+    Final results
+        Best tour: [6, 0, 5, 1, 2, 3, 8, 12, 4, 9, 7, 14, 13, 11, 10] 
+        Best dist: 4.634205
+        Distance improvements:
+            Path 0 distance = 5.20308257591552
+            Path 1 distance = 4.936857292751176
+            Path 2 distance = 4.845567641112748
+            Path 3 distance = 4.634205009916219
+```
+
+These four paths are shown below
+
+![](images/ex13_tsp_best_0.png)
+
+![](images/ex13_tsp_best_1.png)
+
+![](images/ex13_tsp_best_2.png)
+
+![](images/ex13_tsp_best_3.png)
+
 
 ### Solution to exercise 14
 ```

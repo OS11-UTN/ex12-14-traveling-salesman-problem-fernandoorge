@@ -5,8 +5,10 @@
 import numpy as np
 import math
 import random
+import operator
 import matplotlib
 import matplotlib.pyplot as plt
+from   itertools         import  combinations
 
 def count_ones(NN):
     """Return number of ones in Node-Node Matrix."""
@@ -277,6 +279,7 @@ def plot_tour(points, tour):
             plt.plot(xseg, yseg, 'b-.')
             
 def tour_distance(points, tour):
+    """@TODO."""
     dist = 0
     x = [tup[0] for tup in points] 
     y = [tup[1] for tup in points]
@@ -286,3 +289,83 @@ def tour_distance(points, tour):
         else:
             dist += math.sqrt(pow(x[tour[k+1]]-x[tour[k]],2) + pow(y[tour[k+1]]-y[tour[k]],2))
     return dist
+    
+def get_population(chromosome, size):
+    """@TODO."""
+    population = []
+    population.append(chromosome)
+    for k in range(0, size-1):
+        nc = random.sample(chromosome, len(chromosome))
+        population.append(nc)
+    return population            
+    
+def rank_routes(population, points):
+    pop_dist = []
+    for k in range(0, len(population)):
+        pop  = population[k]
+        dist = tour_distance(points, pop)
+        pop_dist.append( (pop, dist) )
+    pop_dist.sort(key = operator.itemgetter(1))
+    return pop_dist
+
+def perform_selection(results, elite_size):
+    parents = []
+    for k in range(elite_size):
+        parent = results[k]
+        parents.append(parent)
+    return parents
+    
+def ordered_crossover(parent1, parent2):
+    p1 = parent1[0]
+    p2 = parent2[0]
+    length = len(p1)
+    cut1   = 0
+    cut2   = -1
+    xsover = []
+    
+    while cut1 > cut2:
+        cut1 = random.randint(0, length-1)
+        cut2 = random.randint(0, length-1)
+    p1_slice = p1[cut1:cut2+1]
+    j = 0
+    while (len(xsover) < length):
+        if (len(xsover) == cut1):
+            for k in range(len(p1_slice)):
+                xsover.append(p1_slice[k])
+        else:
+            if (not p2[j] in p1_slice):
+                xsover.append(p2[j])        
+            j = j + 1
+    print('parent1: %s\nparent2: %s\nchild  : %s' % (p1, p2, xsover))
+    return xsover
+
+def mutate_child(child, mutation_rate):
+    mchild = child.copy()
+    ncoor  = len(mchild)
+    mutation_chance = random.randint(0, 100) / 100
+    if mutation_chance <= mutation_rate:
+        print('Mutate child!!!')
+        node1 = 0
+        node2 = 0
+        while (node1 == node2):
+            node1 = random.randint(0,ncoor-1)
+            node2 = random.randint(0,ncoor-1)
+        idx1 = mchild.index(node1)
+        idx2 = mchild.index(node2)
+        mchild[idx1] = node2
+        mchild[idx2] = node1
+    return mchild
+    
+def get_next_generation(parents, mutation_rate, points):
+    pop = []
+    for p in parents:
+        pop.append(p) 
+        
+    length = len(parents)
+    comb   = combinations(range(length), 2)
+    for pair in comb:
+        child  = ordered_crossover(parents[pair[0]], parents[pair[1]])
+        mchild = mutate_child(child, mutation_rate)
+        dist   = tour_distance(points, mchild)
+        pop.append( (mchild, dist) )
+    return pop
